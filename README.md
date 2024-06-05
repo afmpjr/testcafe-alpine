@@ -13,6 +13,12 @@
     docker build -t testcafe-alpine .
     ```
 
+    Use the follwing in case you have any network issue.
+
+    ```bash
+    docker build --network host -t testcafe-alpine .
+    ```
+
 2. source `testcafe-alpine.sh` and/or add to your `.bashrc` or `.zshrc`
 
 3. Make sure you have tests in your `tests` directory
@@ -33,6 +39,14 @@
     ```bash
     # Getting the list of available browsers
     testcafe --list-browsers
+    ```
+
+    If you had any network issues on `build` step, you'll probably have issues to run
+    the image as well.  
+    To solve that, update the `testcafe-alpine.sh` by adding `--network host` as follows:
+
+    ```bash
+        local docker_command="docker run --network host -it --rm -v $(pwd):/testcafe/ testcafe-alpine testcafe ${extra_params[*]}"
     ```
 
 ## Official TestCafe documentation
