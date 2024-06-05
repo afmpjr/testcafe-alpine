@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 testcafe() {
-    local source=""
-    local browser=""
-    local target=""
-    local output=""
+    local source="./"
+    local browser="firefox:headless"
+    local target="tests"
+    local output="report.xml"
     local reporter=""
 
     while [[ $# -gt 0 ]]; do
