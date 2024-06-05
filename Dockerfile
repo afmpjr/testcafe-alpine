@@ -1,7 +1,10 @@
 FROM node:20-alpine AS builder
 
+# Update repositories
+RUN apk update && apk add --no-cache
+
 # install Firefox
-RUN apk add firefox
+RUN apk add firefox nss
 
 # install Chrome
 RUN apk add chromium
