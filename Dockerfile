@@ -1,23 +1,19 @@
-# Stage 1: Building and installing TestCafe dependencies
 FROM node:20-alpine AS builder
 
-# Install basic dependencies
-# RUN apk --no-cache add wget ca-certificates gnupg bzip2
-
-# Firefox
+# install Firefox
 RUN apk add firefox
 
-# Chrome
+# install Chrome
 RUN apk add chromium
 
-# Clean up
+# do clean up
 RUN rm -rf /var/cache/apk/*
 
-# TestCafe
+# install TestCafe and do clean up
 RUN npm install -g testcafe && \
     npm cache clean --force
 
 WORKDIR /testcafe
 
-# Default command
+# default command
 CMD ["testcafe"]

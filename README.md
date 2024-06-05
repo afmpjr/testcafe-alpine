@@ -1,27 +1,41 @@
 # TestCafe (Alpine) Docker
 
+- README.md
 - Dockerfile
 - testcafe-alpine.sh
 - tests/script.js
 
 ## How to use
 
-### to get a JSON output
+1. Build the image
 
-```bash
-docker run -it --rm -v ./tests:/testcafe/tests testcafe-alpine testcafe --color firefox:headless ./tests --reporter spec,json:/testcafe/tests/report.json
-```
+    ```bash
+    docker build -t testcafe-alpine .
+    ```
 
-### to use Chromium and get a JSON output
+2. source `testcafe-alpine.sh` and/or add to your `.bashrc` or `.zshrc`
 
-```bash
-testcafe -source ./ -browser chromium:headless -target tests -output report.json
-```
+3. Make sure you have tests in your `tests` directory
 
-### to use Firfox and get a XML output
+4. Run the tests
 
-```bash
-testcafe -source ./ -browser firefox:headless -target tests -output report.xml
-```
+    ```bash
+    # Runnin on multple browsers
+    testcafe -v ./:/testcafe/ firefox:headless,chromium:headless /testcafe/tests
 
-> [TestCafe documentation - Guides → Reporters](https://testcafe.io/documentation/402825/guides/intermediate-guides/reporters)
+    # Runnin on Firefox + XML output
+    testcafe -v ./:/testcafe/ firefox:headless /testcafe/tests --reporter spec,xunit:/testcafe/report.xml
+
+    # Runnin on Chrome + JSON output
+    testcafe -v ./:/testcafe/ chromium:headless /testcafe/tests --reporter spec,json:/testcafe/report.json
+    ```
+
+    ```bash
+    # Getting the list of available browsers
+    testcafe --list-browsers
+    ```
+
+## Official TestCafe documentation
+
+- [TestCafe documentation - API → Command Line Interface](https://testcafe.io/documentation/402639/reference/command-line-interface)
+- [TestCafe documentation - Guides → Reporters](https://testcafe.io/documentation/402825/guides/intermediate-guides/reporters)

@@ -1,54 +1,44 @@
 #!/usr/bin/env bash
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+WHITE='\033[1;37m'
+NC='\033[0m' # No Color
+
 testcafe() {
-    local source="./"
-    local browser="firefox:headless"
-    local target="tests"
-    local output="report.xml"
-    local reporter=""
+    local no_color=0
+    local extra_params=()
 
     while [[ $# -gt 0 ]]; do
         case "$1" in
-            -source)
-                source="$2"
-                shift 2
+            -no-color)
+                no_color=1
+                shift
                 ;;
-            -browser)
-                browser="$2"
-                shift 2
-                ;;
-            -target)
-                target="$2"
-                shift 2
-                ;;
-            -output)
-                output="$2"
+            -v)
                 shift 2
                 ;;
             *)
-                echo "Error: Unknown argument - $1"
-                return 1
+                extra_params+=("$1")
+                shift
                 ;;
         esac
     done
 
-    if [[ -z $source || -z $browser || -z $target || -z $output ]]; then
-        echo "Error: You must provide the arguments -source, -browser, -target, and -output"
-        return 1
+    if [ $no_color -eq 1 ]; then
+        RED=''
+        GREEN=''
+        YELLOW=''
+        BLUE=''
+        WHITE=''
+        NC=''
     fi
 
-    case "$output" in
-        *.xml)
-            reporter="--reporter spec,xunit:/testcafe/report.xml"
-            ;;
-        *.json)
-            reporter="--reporter spec,json:/testcafe/report.json"
-            ;;
-        *)
-            echo "Error: Unknown output file extension - $output"
-            return 1
-            ;;
-    esac
+    local docker_command="docker run -it --rm -v $(pwd):/testcafe/ testcafe-alpine testcafe ${extra_params[*]}"
 
-    eval docker run -it --rm -v $source:/testcafe/ testcafe-alpine testcafe --color $browser /testcafe/$target $reporter
+    echo -e "${YELLOW}❯ ${docker_command}${NC}"
+
+    eval $docker_command
 }
