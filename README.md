@@ -1,5 +1,11 @@
 # TestCafe (Alpine) Docker
 
+An Alternative Approach for Running TestCafe in a Lightweight Docker Container
+
+> This repository provides a Docker image for executing TestCafe tests. The goal is to streamline DEV and QA professionals testing workflows and enjoy the benefits of containerization.
+
+Table of contents:
+
 - README.md
 - Dockerfile
 - testcafe-alpine.sh
