@@ -5,25 +5,46 @@
 - testcafe-alpine.sh
 - tests/script.js
 
-## How to use
+## Pre-requisites
 
-1. Build the image
+- [Docker](https://docs.docker.com/engine/install/)
 
-    ```bash
-    docker build -t testcafe-alpine .
-    ```
+## How to use (Linux or WSL)
 
-    Use the follwing in case you have any network issue.
+### 1. Clone this repo
 
-    ```bash
-    docker build --network host -t testcafe-alpine .
-    ```
+```bash
+git clone https://github.com/afmpjr/testcafe-alpine.git && cd testcafe-alpine
+```
 
-2. source `testcafe-alpine.sh` and/or add to your `.bashrc` or `.zshrc`
+### 2. Build the image
 
-3. Make sure you have tests in your `tests` directory
+```bash
+docker build -t testcafe-alpine .
+```
 
-4. Run the tests
+Use the follwing in case you have any network issue.
+
+```bash
+docker build --network host -t testcafe-alpine .
+```
+
+### 3. Enable the `testcafe-alpine.sh` script
+
+```bash
+source ./testcafe-alpine.sh
+```
+
+or add to your `.bashrc`, `.zshrc` or wharever shell `rc` you´re using by running the following from the directory where `testcafe-alpine.sh` is located.
+
+```bash
+echo "source ${PWD}/testcafe-alpine.sh" >> "${HOME}/.$(basename "$SHELL")rc"
+source ${HOME}/.$(basename "$SHELL")rc
+```
+
+### 4. Make sure you have tests in your `tests` directory
+
+5. Run the tests
 
     ```bash
     # Runnin on multple browsers
@@ -42,7 +63,7 @@
     ```
 
     If you had any network issues on `build` step, you'll probably have issues to run
-    the image as well.  
+    the image as well.
     To solve that, update the `testcafe-alpine.sh` by adding `--network host` as follows:
 
     ```bash
@@ -53,3 +74,11 @@
 
 - [TestCafe documentation - API → Command Line Interface](https://testcafe.io/documentation/402639/reference/command-line-interface)
 - [TestCafe documentation - Guides → Reporters](https://testcafe.io/documentation/402825/guides/intermediate-guides/reporters)
+
+## Open to Contributors
+
+If you’d like to help improving this project, feel free to:
+
+- Fork the repository.
+- Make your changes.
+- Submit a pull request.
