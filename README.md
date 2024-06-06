@@ -44,31 +44,30 @@ source ${HOME}/.$(basename "$SHELL")rc
 
 ### 4. Make sure you have tests in your `tests` directory
 
-5. Run the tests
+### 5. Run the tests
 
-    ```bash
-    # Runnin on multple browsers
-    testcafe -v ./:/testcafe/ firefox:headless,chromium:headless /testcafe/tests
+```bash
+# Runnin on multple browsers
+testcafe -v ./:/testcafe/ firefox:headless,chromium:headless /testcafe/tests
 
-    # Runnin on Firefox + XML output
-    testcafe -v ./:/testcafe/ firefox:headless /testcafe/tests --reporter spec,xunit:/testcafe/report.xml
+# Runnin on Firefox + XML output
+testcafe -v ./:/testcafe/ firefox:headless /testcafe/tests --reporter spec,xunit:/testcafe/report.xml
 
-    # Runnin on Chrome + JSON output
-    testcafe -v ./:/testcafe/ chromium:headless /testcafe/tests --reporter spec,json:/testcafe/report.json
-    ```
+# Runnin on Chrome + JSON output
+testcafe -v ./:/testcafe/ chromium:headless /testcafe/tests --reporter spec,json:/testcafe/report.json
+```
 
-    ```bash
-    # Getting the list of available browsers
-    testcafe --list-browsers
-    ```
+```bash
+# Getting the list of available browsers
+testcafe --list-browsers
+```
 
-    If you had any network issues on `build` step, you'll probably have issues to run
-    the image as well.
-    To solve that, update the `testcafe-alpine.sh` by adding `--network host` as follows:
+If you had any network issues on `build` step, you'll probably have issues to run the image as well.
+To solve that, update the `testcafe-alpine.sh` by adding `--network host` as follows:
 
-    ```bash
-        local docker_command="docker run --network host -it --rm -v $(pwd):/testcafe/ testcafe-alpine testcafe ${extra_params[*]}"
-    ```
+```bash
+    local docker_command="docker run --network host -it --rm -v $(pwd):/testcafe/ testcafe-alpine testcafe ${extra_params[*]}"
+```
 
 ## Official TestCafe documentation
 
